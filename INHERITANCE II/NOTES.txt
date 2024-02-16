@@ -1,0 +1,293 @@
+Hierarchical Inheritance:
+________________________
+
+class Employee
+{
+	public static int basic=30000;
+	
+	int salary()
+	{
+		return basic;
+	}
+}
+
+class Manager extends Employee
+{
+	int salary()
+	{
+		return (basic+20000);
+	}
+}
+
+class Clerk extends Employee
+{
+	int salary()
+	{
+		return (basic+10000);
+	}
+}
+
+
+public class Hierarchical {
+	static void printSalary(Employee e)
+	{
+		System.out.println(e.salary());
+	}
+	
+	
+	public static void main(String args[])
+	{
+		Employee ob1=new Manager();
+		printSalary(ob1);
+				
+		Employee ob2=new Clerk();
+		printSalary(ob2);
+		
+		
+	}
+
+}
+_______________________________________________________________________________________________________
+
+Multiple inheritance: 
+____________________
+
+class Parent1
+{
+	void fun()
+	{
+		System.out.println("Parent 1");
+	}
+}
+
+class Parent2
+{
+	void fun()
+	{
+		System.out.println("Parent 2");
+	}
+}
+
+
+public class Multiple extends Parent1, Parent2{    //ERROR 
+	public static void main(String args[])
+	{
+		Multiple ob=new Multiple();
+		ob.fun();
+	}
+
+}
+______________________________________________________________________________________________________
+//Way out of the error:  [Using interfaces]
+
+interface IN1
+{
+	default void fun()
+	{
+		System.out.println("Interface 1");
+	}
+}
+
+interface IN2
+{
+	default void fun()
+	{
+		System.out.println("Interface 2");
+	}
+}
+
+
+public class Multiple implements IN1, IN2{
+	
+	public void fun()
+	{
+		System.out.println("Multiple");
+		IN1.super.fun();  //ambiguity resolution
+		IN2.super.fun();  //ambiguity resolution
+	}
+	
+	public static void main(String args[])
+	{
+		Multiple ob=new Multiple();
+		ob.fun();
+	}
+
+}
+_______________________________________________________________________________________________________
+//Diamond problem:
+
+class GrandParent
+{
+	void fun()
+	{
+		System.out.println("GP");
+	}
+}
+
+class Base1 extends GrandParent
+{
+	void fun()
+  {
+	System.out.println("Parent 1");
+  }
+	
+}
+
+class Base2 extends GrandParent
+{
+	void fun()
+  {
+	System.out.println("Parent 2");
+  }
+	
+}
+	
+
+
+public class Diamond1 extends Base1, Base2 {      //ERROR 
+	public static void main(String args[])
+	{
+		GrandParent g1=new Base1();
+		GrandParent g2=new Base2();
+		g1.fun();
+		g2.fun();
+	}
+
+}
+_____________________________________________________________________________________________________
+//way out of diamond problem: 
+
+interface GIN
+{
+	default void show()
+	{
+		System.out.println("GIN1");
+	}
+}
+
+interface IN1 extends GIN
+{
+	
+}
+
+interface IN2 extends GIN
+{
+	
+}
+
+class Diamond1 implements IN1, IN2
+{
+	public static void main(String args[])
+	{
+		Diamond1 d=new Diamond1();
+		d.show();
+	}
+}
+________________________________________________________________________________________________________
+// One class implements multiple interfaces:
+
+interface IN1
+{
+	void fun1();
+}
+
+interface IN2
+{
+	void fun2();
+}
+
+class Interface implements IN1, IN2
+{
+	public void fun1()
+	{
+		System.out.println("FUN1");
+	}
+	public void fun2()
+	{
+		System.out.println("FUN2");
+	}
+	
+}
+
+class Diamond1 
+{
+	public static void main(String args[])
+	{
+		Interface ob=new Interface();
+		ob.fun1();
+		ob.fun2();
+		
+	}
+}
+________________________________________________________________________________________________________
+// an interface can extend other interface:
+
+interface IN1
+{
+	void getName();
+}
+
+interface IN2 extends IN1
+{
+	void getInstitute();
+}
+
+class Diamond1 implements IN2
+{
+	public void getName()
+	{
+		System.out.println("RB");
+	}
+	
+	public void getInstitute()
+	{
+		System.out.println("JU");
+	}
+	public static void main(String args[])
+	{
+		Diamond1 ob=new Diamond1();
+		ob.getName();
+		ob.getInstitute();
+	}
+	
+}
+_______________________________________________________________________________________________________
+// an interface can extend multiple interfaces: 
+
+interface IN1
+{
+	void getName();
+}
+interface IN2
+{
+	void getInst();
+}
+interface IN3 extends IN1, IN2
+{
+	void getBranch();
+}
+
+class Diamond1 implements IN3
+{
+	public void getName()
+	{
+		System.out.println("RB");
+	}
+	public void getInst()
+	{
+		System.out.println("JU");
+	}
+	public void getBranch()
+	{
+		System.out.println("CSE");
+	}
+ public static void main(String args[])
+ {
+	 Diamond1 ob=new Diamond1();
+	 ob.getName();
+	 ob.getInst();
+	 ob.getBranch();
+ }
+}
+
+________________________________________________________________________________________________________
