@@ -1,0 +1,304 @@
+OOS Class 8 : https://youtu.be/Af6F_cluZq8
+
+Abstract class: 
+_______________
+
+ abstract class Shape
+{
+abstract void show();	
+	
+}
+
+class Square extends Shape
+{
+	void show()
+	{
+		System.out.println("Within square");
+	}
+}
+
+
+class Abstract {
+	public static void main(String args[])
+	{
+		//Shape s=new Shape(); //Error; abstract class can't be instantiated
+		Shape s=new Square();
+		s.show();
+		
+	}
+
+}
+________________________________________________________________________________________________________
+
+abstract class Shape
+{
+void show()
+{
+	System.out.println("Within shape");
+}
+	
+}
+
+class Square extends Shape
+{
+	void show()
+	{
+		System.out.println("Within square");
+	}
+}
+
+
+class Abstract {
+	public static void main(String args[])
+	{
+		//Shape s=new Shape(); //Error; abstract class can't be instantiated
+		Shape s=new Square();
+		s.show();              // Square class show func, RTP 
+		
+	}
+
+}
+________________________________________________________________________________________________________
+
+ abstract class Shape
+{
+	 int data1;
+	 Shape()
+	 {   
+		 System.out.println("within base const");
+		 data1=10; 
+	 }
+   void show()
+  {
+	System.out.println("Within shape"+data1);
+  }
+	
+}
+
+class Square extends Shape
+{
+	int data2;
+	Square()
+	{
+		System.out.println("within child const");
+		data2=20;
+	}
+	void show()
+	{
+		System.out.println("Within square "+data2);
+	}
+	void print()
+	{
+		System.out.println("Within print");
+	}
+}
+
+
+class Abstract {
+	public static void main(String args[])
+	{		
+		Shape s=new Square();
+		System.out.println(s.data1);
+		//System.out.println(s.data2); //ERROR
+		//s.print(); //ERROR
+		s.show();  //RTP
+		
+	}
+
+}
+________________________________________________________________________________________________________
+
+ abstract class Shape
+{
+	 int data1;
+	 Shape()
+	 {   
+		 System.out.println("within base const");
+		 data1=10; 
+	 }
+  abstract void show();
+  
+	
+}
+
+class Square extends Shape
+{
+	int data2;
+	Square()
+	{
+		System.out.println("within child const");
+		data2=20;
+	}
+	void show()
+	{
+		System.out.println("Within square "+data2);
+	}
+	
+}
+
+
+class Abstract {
+	public static void main(String args[])
+	{		
+		Square s=new Square();
+		System.out.println(s.data1);
+		System.out.println(s.data2); 
+		s.show();  
+		
+	}
+
+}
+________________________________________________________________________________________________________
+//Multi-level inheritance: 
+
+interface IN
+{
+	void f1();
+	void f2();
+	void f3();
+	
+}
+
+abstract class AB implements IN
+{	
+	public void f3()
+	{
+		System.out.println("Within f3: AB");
+	}
+}
+
+class ABC extends AB
+{
+	public void f1()
+	{
+		
+		System.out.println("Within f1: ABC");
+	}
+	public void f2()
+	{
+		System.out.println("Within f2: ABC");
+	}
+}
+
+
+class InterAbstract {
+	public static void main(String args[])
+	{
+		IN i=new ABC();
+		i.f1();
+		i.f2();
+		i.f3();
+	}
+
+}
+_______________________________________________________________________________________________________
+
+interface IN
+{
+	void f1();
+	void f2();
+	void f3();
+	
+}
+
+abstract class AB implements IN
+{	
+	public void f3()
+	{
+		System.out.println("Within f3: AB");
+	}
+}
+
+class ABC extends AB
+{
+	public void f1()
+	{
+		
+		System.out.println("Within f1: ABC");
+	}
+	public void f2()
+	{
+		System.out.println("Within f2: ABC");
+	}
+	public void f3()
+	{
+		System.out.println("Within f3: ABC");
+	}
+}
+
+
+class InterAbstract {
+	public static void main(String args[])
+	{
+		IN i=new ABC();
+		i.f1();
+		i.f2();
+		i.f3();  // ABC version will be invoked
+	}
+
+}
+________________________________________________________________________________________________________
+//using final in abstract class:
+
+abstract class Figure
+{
+	private int width;
+	private int height;
+	
+	Figure(int w, int h)
+	{
+		width=w;
+		height=h;
+	}
+final int getWidth()
+{
+	return width;
+}
+
+final int getHeight()
+{
+	return height;
+}
+
+abstract int getArea();
+}
+
+class Rectangle extends Figure
+{
+	Rectangle(int width, int height)
+	{
+		super(width, height);
+	}
+	
+	final int getArea()
+	{
+		return (super.getWidth()*super.getHeight());
+	}
+	
+}
+
+class Square1 extends Figure
+{
+	Square1(int length)
+	{
+		super(length, length);
+	}
+	
+	final int getArea()
+	{
+		return (this.getWidth()*this.getHeight());
+	}
+}
+
+ class FinalAbstract {
+
+	 public static void main(String args[])
+	 {
+		 Figure f1=new Rectangle(10,8);
+		 Figure f2=new Square1(5);
+		 System.out.println("Area of rec="+f1.getArea());
+		 System.out.println("Area of square="+f2.getArea());
+	 }
+	 
+}
+________________________________________________________________________________________________________
