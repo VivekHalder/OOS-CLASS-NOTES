@@ -1,0 +1,241 @@
+OOS Class 10 : https://youtu.be/3kHq0vMklC0
+
+Package:
+________  
+It is used to group related classes. 
+
+It helps organize our classes into a folder structure and make it easy to locate and use them. It helps improve re-usability. 
+
+How to use packages:
+____________________
+
+import
+
+Steps to create and use a package:
+______________________________
+ 1. First declare the name of the package using the package keyword followed by a package name (pack1)
+ 2. Define the class within pack1. 
+The file should be saved as A.java and located in a directory named pack. After compilation of the source file (A.java), Jave will create a .class file and store it in the same directory.
+3. The directory having the same name as the package must contain the .class file and 
+this directory should be a subdirectory where the classes that will import the package are located. 
+_____________________________________________________________________________________________________
+
+//A.java   [ src/pack1 ]
+
+package pack1;  
+
+public class A {
+	public void display()
+	{
+		System.out.println("Class A");
+	}
+
+}
+_____________________________________________________________
+//ImportA.java [ src/default ]
+
+import pack1.A;
+
+ class ImportA {
+	 
+	 public static void main(String args[])
+	 {
+		 A ob=new A();
+		 ob.display();
+	 }
+
+}
+_______________________________________________________________________________________________________
+//Using fully qualified name; we can use a class within a package [instead of importing the package]
+class ImportA {
+	 
+	 public static void main(String args[])
+	 {
+		 pack1.A ob=new pack1.A();
+		 ob.display();
+	 }
+
+}
+_______________________________________________________________________________________________________
+
+How to put 2 public classes in a package? 
+
+We can create 2 java source files each containing one public class, but keep the package name same.
+One source file cannot contain more than one class. 
+
+//pack1
+//A.java  [src/pack1]
+
+package pack1;
+
+public class A {
+	public void display()
+	{
+		System.out.println("Class A");
+	}
+
+}
+_________________________________________________
+//B.java  [src/pack1]
+
+package pack1;
+
+public class B {
+	
+	public void show()
+	{
+		System.out.println("Class B");
+	}
+
+}
+_____________________________________________________
+//ImportA.java [src/default]
+
+ class ImportA {
+	 
+	 public static void main(String args[])
+	 {
+		 pack1.A ob=new pack1.A(); //Fully qualified name; no need to import the package
+		 ob.display();
+		 
+		 pack1.B ob1=new pack1.B();
+		 ob1.show();
+	 }
+
+}
+______________________________________________________
+
+import pack1.A;
+import pack1.B;
+
+ class ImportA {
+	 
+	 public static void main(String args[])
+	 {
+		 A ob=new A();
+		 ob.display();
+		 
+		 B ob1=new B();
+		 ob1.show();
+	 }
+
+}
+______________________________________________________________________________________________________
+
+How to hide classes within a package? 
+
+If we omit the access specifier 'public' in the class definition, it will be hidden and will not be available from outside the package. 
+The classes which are not declared as public can be seen and used by other classes in the same package. 
+
+_______________________________________________________________________________________________________
+
+How to create/use Sub packages:
+_____________________________
+
+// package Calculate.Calculator.java
+
+package Calculate;
+
+public class Calculator {
+	
+	public int add(int a, int b)
+	{
+		return a+b;
+	}
+	
+	public static void main(String args[])
+	{
+		Calculator ob=new Calculator();
+		System.out.println(ob.add(5, 7));
+	}
+
+}
+_______________________________________________________
+
+//package Calculate.Multiply.Multiplication.java
+
+package Calculate.Multiply;
+
+public class Multiplication {
+ public int product(int a, int b)
+ 
+{
+	return a*b;
+}
+	
+	
+}
+_______________________________________________________
+//default package/ ImportSub.java
+
+public class ImportSub {
+	public static void main(String args[])
+	{
+		Calculate.Multiply.Multiplication ob=new Calculate.Multiply.Multiplication ();
+		System.out.println(ob.product(2,3));
+	}
+
+}
+______________________________________________________
+//default package/ ImportSub.java
+
+import Calculate.Multiply.*;
+
+public class ImportSub {
+	public static void main(String args[])
+	{
+		Multiplication ob=new Multiplication ();
+		System.out.println(ob.product(2,3));
+	}
+
+}
+____________________________________________________________
+
+How to resolve name conflicts?
+
+package pack1  --- A.java, B.java
+package pack2 ---- A.java
+
+import pack1.A;
+import pack2.A;
+
+//throw an error; name collison
+___________________________________
+//Resolve this error:
+
+import pack1.A;
+
+public class ImportBothP {
+	public static void main(String args[])
+	{
+		pack2.A ob=new pack2.A();
+		ob.print();
+		
+	}
+
+}
+__________________________________________________________________________
+
+import pack1.B;
+import pack2.A;
+
+
+public class ImportBothP {
+	public static void main(String args[])
+	{
+		pack1.A ob1=new pack1.A();
+		ob1.display();
+		
+		A ob2=new A(); // pack2
+		ob2.print();
+		
+		B ob3=new B(); //pack1
+		ob3.show();
+		
+		pack2.B ob4=new pack2.B();
+		ob4.get();
+	}
+
+}
+______________________________________________________________
+

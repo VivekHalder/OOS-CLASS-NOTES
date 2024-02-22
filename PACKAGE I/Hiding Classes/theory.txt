@@ -1,0 +1,5 @@
+Class hiding is means, to prevent a class from being imported.
+
+Donot declare the class as public.
+
+We may hide a class in a package from being imported, if we omit the access specifier 'public', from the class definition, it will be hidden and will not be available from outside that package. The classes which are not declared public, can only be used by the classes in the same package and not outside it.
